@@ -1,0 +1,69 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Home Page
+{% endblock %}
+
+{% block logged %}
+<main role="main">
+
+<!-- jummbotron -->
+<div class="jumbotron" style="background:transparent !important">
+    <div class="row">
+        <div class="col-lg-8">
+            <h1 class="display-3">Hello, there!</h1>
+            <p class="text-justify">
+                Covid-19 Machine Learning Application or COMALAB in short is a 
+                web application that accurately predicts the risk of someone having contracted 
+                the corona virus through the x-ray images of their chest. 
+                The machine learning model built on Convolutional Neural Network (CNN) 
+                is trained using more than six thousand x-ray images and a technique termed 
+                <i class="footer-text">transfer learning</i>. 
+                With that, we were able to reach a prediction accuracy of 94%!
+            </p>
+            <p><a class="btn btn-primary btn-lg" href="/predict" role="button">Start predicting &raquo;</a></p>
+        </div>
+    
+        <div class="col-lg-4">
+            {% load static %}
+            <img src="{% static 'main/lung_xray_image.jpg' %}" alt="" width="300" height="300" class="rounded d-none d-lg-block">
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Ready?</h2>
+            <p class="text-justify">
+                This application is developed with simplicity and ease-of-use in mind. 
+                With a few clicks of a button, the results will be out within seconds 
+                which allows sorting and searching of a specific patient's image. 
+                Still unsure of how to use this application? Read our user guide right here!
+            </p>
+            <p><a class="btn btn-secondary" href="/user-guide" role="button">View guide &raquo;</a></p>
+        </div>
+
+        <div class="col-md-4">
+            <h2>Set.</h2>
+            <p class="text-justify">
+                You are now set! You can get right on to predicting risk of Covid-19 or, 
+                if you do not have your own chest x-ray images, we have included a samples folder.
+                It contains images of both healthy and possibly infected lungs with varying risks.
+                Try it out using our samples! 
+            </p>
+        </div>
+
+        <div class="col-md-4">
+            <h2>Go!</h2>
+            <p class="text-justify">
+                Start predicting right away right here!
+            </p>
+            <p><a class="btn btn-secondary" href="/predict" role="button">Predict &raquo;</a></p>
+        </div>
+    </div>
+
+</div> <!-- /container -->
+
+</main>
+{% endblock %}

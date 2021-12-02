@@ -1,0 +1,116 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+User Guide
+{% endblock %}
+
+{% block logged %}
+<h2 class="mb-4">User Guide</h2>
+
+<div class="mb-5">
+    <h5 class="footer-text">Step 1: Getting to the right page</h5><hr>
+    {% load static %}
+    <img src="{% static 'guide/guide_navbar.png' %}" alt="" width="400" class="rounded">
+    <p class="text-justify" style="max-width: 800px;">
+        To start making risk prediction, you have to first be in the right page. 
+        Click on <i class="footer-text">predict</i> in the navigation bar at the top of your screen to get there!
+    </p>
+</div>
+
+<div class="mb-5">
+    <h5 class="footer-text">Step 2: Populating the prediction table</h5><hr>
+    {% load static %}
+    <img src="{% static 'guide/guide_choosefiles.png' %}" alt="" width="800" class="rounded">
+    <p class="text-justify" style="max-width: 800px;">
+        Now that you have reached the correct page, you can begin by selecting 
+        the chest x-ray image(s) you would like to get a Covid-19 risk prediction on. 
+        Click on the button <i class="footer-text">Choose Files</i> to do just that.
+    </p>
+    {% load static %}
+    <img src="{% static 'guide/guide_upload.png' %}" alt="" width="800" class="rounded">
+    <p class="text-justify" style="max-width: 800px;">
+        Once you have have made your selection, click on the button 
+        <i class="footer-text">Upload image(s)</i> to populate the prediction table.
+    </p>
+</div>
+
+<div class="mb-5">
+    <h5 class="footer-text">Step 3: Selection and deletion</h5><hr>
+    {% load static %}
+    <img src="{% static 'guide/guide_select.png' %}" alt="" width="800" class="rounded">
+    <p class="text-justify" style="max-width: 800px;">
+        Using the checkboxes in the prediction table, you can select one or more or all images.
+        You can use this function to remove image(s) from the prediction table.
+    </p>
+
+    {% load static %}
+    <img src="{% static 'guide/guide_delete.png' %}" alt="" width="800" class="rounded">
+    <p class="text-justify" style="max-width: 800px;">
+        Once you have made your selection, you can remove the selected image(s) by 
+        clicking on the <i class="footer-text">Delete</i> button.
+    </p>
+</div>
+
+<div class="mb-5">
+    <h5 class="footer-text">Step 4: Making prediction</h5><hr>
+    {% load static %}
+    <img src="{% static 'guide/guide_predict.png' %}" alt="" width="800" class="rounded">
+    <p class="text-justify" style="max-width: 800px;">
+        Ready to make the make the prediction? Simply click on 
+        <i class="footer-text">Predict</i> button to get your results.
+    </p>
+    {% load static %}
+    <img src="{% static 'guide/guide_predictresult.png' %}" alt="" width="800" class="rounded">
+    <p class="text-justify" style="max-width: 800px;">
+        Above is an example of the prediction result. 
+        If an image is predicted to have a high risk of Covid-19 infection, 
+        the image will be highlighted red as displayed.
+    </p>
+</div>
+
+<div class="mb-5">
+    <h5 class="footer-text">Step 5: Sorting</h5><hr>
+    {% load static %}
+    <img src="{% static 'guide/guide_sort.png' %}" alt="" width="800" class="rounded">
+    <p class="text-justify" style="max-width: 800px;">
+        The prediction table also allows sorting of the results. You can either 
+        sort them by the filenames or by the risk prediction. Simply click on the 
+        table headers to accomplish this.
+    </p>
+</div>
+
+<div class="mb-5">
+    <h5 class="footer-text">Step 6: View Heatmap</h5><hr>
+    {% load static %}
+    <img src="{% static 'guide/guide_heatmap.png' %}" alt="" width="400" class="rounded">
+    <p class="text-justify" style="max-width: 800px;">
+        To view how the algorithm determined it's prediction, you can click on the
+        <i class="footer-text">View</i> button. 
+        This will display a heatmap of the areas that helped the algorithm decide on it's prediction.
+
+    </p>
+    <p>
+        Images that have yet to be predicted will not have a heatmap available for viewing.
+    </p>
+    {% load static %}
+    <img src="{% static 'guide/example_heatmap.png' %}" alt="" width="400" class="rounded">
+</div>
+
+<div class="mb-5">
+    <h5 class="footer-text">Step 7: Exporting prediction results</h5><hr>
+    {% load static %}
+    <img src="{% static 'guide/guide_export.png' %}" alt="" width="800" class="rounded">
+    <p class="text-justify" style="max-width: 800px;">
+        To export the prediction results, click on the
+        <i class="footer-text">Export</i> button. 
+        The prediction results will be exported into a CSV file and 
+        automatically downloaded to your machine. Should you be using Microsoft Edge, 
+        a window as shown below should pop-up.        
+    </p>
+    <p>
+        As a form of patient confidentiality, the heatmap and original images will not be exported together, to prevent unneccessary copies being made.
+    </p>
+    {% load static %}
+    <img src="{% static 'guide/guide_download.png' %}" alt="" width="400" class="rounded">
+</div>
+{% endblock %}

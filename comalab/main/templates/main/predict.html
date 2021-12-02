@@ -1,0 +1,96 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Prediction Page
+{% endblock %}
+
+{% block content %}
+<h2 class="mb-3">X-ray Image COVID-19 Risk Prediction</h2>
+
+<div class="mb-4">
+  <form method="post" action = "upload" enctype="multipart/form-data">
+    <input type="hidden" name="upload_requestpage" value="{{ request.path }}">
+    {% csrf_token %}
+    <div class="row">
+        <div style="width:30%; overflow:auto;">
+          <input multiple class="form-control" type="file" accept="*/dicom,.dcm, image/dcm, */dcm, .dicom, .png, .jpg" id="image" name="uploaded_image" style="float:left;">
+          </form>
+        </div>
+        <div style="width:70%; overflow:auto;">
+          <button class="btn btn-warning" type="submit" name="btn_upload">Upload image(s)</button>
+        </div>
+    </div>
+  </form>
+</div>
+
+<div class="row">
+  <div class="col-sm-auto">
+    <form method="post" action ="predict">
+      {% csrf_token %}
+      <input type="hidden" name="predict_requestpage" value="{{ request.path }}">
+      <button id="predict" class="btn btn-primary" type="submit" name="btn_predict">Predict</button>
+    </form>
+  </div>
+  
+  <div class="col">
+    <form method="post" action ="export">
+      {% csrf_token %}
+      <input type="hidden" name="export_requestpage" value="{{ request.path }}">
+      <button id="export" class="btn btn-success" type="submit" name="btn_export">Export</button>
+    </form>
+  </div>
+</div>
+
+<form method="post" action ="delselection">
+  {% csrf_token %}
+  <input type="hidden" name="delete_requestpage" value="{{ request.path }}">
+  <div id="toolbar">
+    <button id="remove" class="btn btn-danger" type="submit" name="btn_delete"><i class="fa fa-trash"></i> Delete</button>
+  </div>
+  <table
+    id="table"
+    data-toggle="table"
+    data-toolbar="#toolbar"
+    data-search="true"
+    data-sort-class="table-active"
+    data-sortable="true"
+    data-search-highlight="true"
+    data-show-search-button="true"
+    data-show-pagination-switch="true"
+    data-click-to-select="true"
+    data-pagination="true">
+
+    <thead>
+      <tr>
+        <th><input type="checkbox" onClick="toggle(this,'image_id')"/></th>
+        <th data-sortable="true" class= "table-text">Filename</th>
+        <th data-sortable="true" class= "table-text">Risk(%)</th>
+		<th data-sortable="true" class= "table-text">Heatmap</th>
+      </tr>
+    </thead>
+	
+    <tbody>
+      {% for image in fn_dict %}
+      <tr>
+        <td style="width:2%"><input type="checkbox" name="image_id" value = "{{image.id}}"></td>  
+        <td style="width:80%">{{ image.filename }}</td>
+        {% if image.risk > 90.0 %}<td style="width:10%" class="risk_values highrisk">{{ image.risk }}</td>{% else %}<td style="width:10%" class="risk_values">{{ image.risk }}</td>{% endif %}
+		    <td style="width:8%">{% if image.heatmap_link %}<a href='/{{image.heatmap_link}}' target= "blank">View</a>{% else %} <a>No predictions yet</a>{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</form>
+
+<script type="text/javascript" >
+  function toggle(source,name) {
+      checkboxes = document.getElementsByName(name);
+      for (var i = 0,
+          n = checkboxes.length; i < n; i++) {
+          checkboxes[i].checked = source.checked;
+      }
+  }
+</script>
+
+
+{% endblock %}

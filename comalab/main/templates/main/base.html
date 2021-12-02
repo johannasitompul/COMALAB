@@ -1,0 +1,202 @@
+<html data-theme="light">
+    <head>
+        <link rel="icon" href="../../static/main/comalab_logo_rounded.ico">
+        <title>
+            COMALAB | {% block title %}{% endblock %}
+        </title>
+
+        <style>
+            html[data-theme='dark'] {
+                --bg: rgb(77, 77, 77);
+                --bg-panel: #434343;
+                --switch-color: rgb(77, 77, 77);
+                --color-heading: rgb(77, 77, 77);
+                --color-text: #dddcdc;
+                --footer-text:#B5B5B5;
+            }
+            html[data-theme='light']{  
+                --bg: #fff;
+                --bg-panel: #ebebeb;
+                --switch-color: rgb(238, 225, 107);
+                --color-heading: rgb(238, 225, 107);
+                --color-text: #333333;
+                --footer-text:#494949;
+            }
+            body.mainbody {
+                background-color: var(--bg);
+                color: var(--color-text);
+            }
+
+            .footer-text{
+                color: var(--footer-text);
+            }
+
+            .table-text{
+                color: var(--color-text);
+            }
+            .table-text.table-active{
+                color: var(--color-text);
+            }
+            .main {
+                margin: 50px;
+            }
+
+            .form-signin {
+                width: 100%;
+                max-width: 330px;
+                padding: 15px;
+                margin: 0 auto;
+            }
+
+            .form-group {
+                max-width: 400px;
+            }
+            .risk_values{
+                color: var(--color-text);
+            }
+            .risk_values.table-active{
+                color: var(--color-text);
+            }
+
+            .risk_values.highrisk {
+                background-color: #fa8072;
+                color: black;
+            }
+
+            .hiddentoggle {
+                height: 0;
+                width: 0;
+                visibility: hidden;
+            }
+
+            label.toggle {
+                cursor: pointer;
+                text-indent: -9999px;
+                width: 52px;
+                height: 27px;
+                background: var(--switch-color);
+                float: right;
+                border-radius: 100px;
+                position: relative;
+            }
+
+            label.toggle:after {
+                content: '';
+                position: absolute;
+                top: 3px;
+                left: 3px;
+                width: 20px;
+                height: 20px;
+                background: #fff;
+                border-radius: 90px;
+                -webkit-transition: 0.1s;
+                transition: 0.1s;
+            }
+
+            input:checked + label {
+                background: var(--switch-color);
+            }
+
+            input:checked + label:after {
+                left: calc(100% - 5px);
+                -webkit-transform: translateX(-100%);
+                        transform: translateX(-100%);
+            }
+
+            label.toggle:active:after {
+                width: 45px;
+            }
+        </style>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+    </head>
+
+    <body class="mainbody">
+        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-warning">
+            <a href="/home">
+                {% load static %}
+                <img src="{% static 'main/comalab_logo_long2.png' %}" alt="" width="126" height="35" class="d-inline-block align-text-top"/>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    {% if user.is_authenticated %}
+                        <a class="nav-item nav-link active" href="/home">Home</a>
+                        <a class="nav-item nav-link active" href="/predict">Predict</a>
+                        <a class="nav-item nav-link active" href="/logout">Logout</a>
+                        {% if user.is_staff %}
+                            <a class="nav-item nav-link active" href="/register">Register</a>
+                        {% endif %}
+                    {% else %}
+                        <a class="nav-item nav-link active" href="/home">Home</a>
+                        <a class="nav-item nav-link active" href="/login">Login</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div>
+                <input type="checkbox" class="hiddentoggle" id="switch"/><label class="toggle" for="switch">Toggle</label>
+            </div>
+        </nav>
+
+        <div id="content" name="conect" class="main">
+            {% block content %}
+                {% if user.is_authenticated %}
+                    {% block logged %}
+                    {% endblock %}
+                {% else %}
+                    <h1 class="h3 fw-normal text-center">Please <a href="/login">login</a> to access COMALAB</h1>
+                {% endif %}
+            {% endblock %}
+        </div>
+
+        <hr class="main">
+
+        <footer>
+            <div class="m-3 text-center">
+                <p class="footer-text">COMALAB &copy;<br>
+                    Alex - Bryan - Nick - Johanna<br>
+                    SIM-UOW Final Year Project 2021</p>
+            </div>
+        </footer>
+        <script>
+            let theme = localStorage.getItem('data-theme');
+            const checkbox = document.getElementById("switch");
+            const changeThemeToDark = () =>{
+                document.documentElement.setAttribute("data-theme", "dark")
+                localStorage.setItem("data-theme", "dark")
+            }
+
+            const changeThemeToLight = () =>{
+                document.documentElement.setAttribute("data-theme", "light")
+                localStorage.setItem("data-theme", 'light')
+            }
+
+            if(theme === 'dark'){
+                changeThemeToDark()
+            }
+
+            checkbox.addEventListener('change', ()=> {
+                let theme = localStorage.getItem('data-theme');
+                if (theme ==='dark'){
+                    changeThemeToLight()
+                }else{
+                    changeThemeToDark()
+                }
+            
+            });
+        </script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+    </body>
+</html>

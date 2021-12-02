@@ -1,0 +1,9 @@
+<tbody>
+    {% for image in fn_dict %}
+    <tr>
+      <td>{{ image.id }}</td>  
+      <td>{{ image.filename }}</td>
+      <td>{{ image.risk }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>

@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Log-in
+{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <main class="form-signin">
+        {% load static %}
+        <img src="{% static 'main/comalab_logo_rounded.png' %}" alt="" width="80" class="rounded mb-3 mx-auto d-block">
+        <h1 class="h3 fw-normal text-center">Please sign-in to access COMALAB</h1>
+        <!-- 
+        {% load static %}
+        <img src="{% static 'main/comalab_logo_long.png' %}" alt="" width="200" class="rounded mb-3 mx-auto d-block">
+        -->
+        <form method="POST" class="form-group">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="text-center">
+                <button type="submit" class="btn btn-warning">Login</button>
+            </div>
+        </form>
+    </main>
+{% endblock %}
+
+
